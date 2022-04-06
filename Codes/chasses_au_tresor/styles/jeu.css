@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+}
+
+#main {
+    display: flex;
+}
+
+#carte {
+    border: 1px solid rgb(150, 141, 141);
+    width: 50%;
+    padding: 0;
+}
+
+.cases {
+    padding: 2.5% 4.6%;
+    margin: 2px;
+    border: 1px solid rgb(140, 148, 140);
+    border-radius: 5px;
+}
+
+#clicked {
+    background-color: grey;
+}
+
+#message {
+    border: 1px solid rgb(150, 141, 141);
+    width: 50%;
+}
