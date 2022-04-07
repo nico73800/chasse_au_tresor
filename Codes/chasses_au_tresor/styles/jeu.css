@@ -8,12 +8,13 @@ body {
 
 #carte {
     border: 1px solid rgb(150, 141, 141);
-    width: 50%;
+    width: 35%;
     padding: 0;
+    margin: 0;
 }
 
 .cases {
-    padding: 2.5% 4.6%;
+    padding: 23.5px;
     margin: 2px;
     border: 1px solid rgb(140, 148, 140);
     border-radius: 5px;
@@ -25,5 +26,13 @@ body {
 
 #message {
     border: 1px solid rgb(150, 141, 141);
-    width: 50%;
+    width: 45%;
+}
+
+#info {
+    border: 1px solid rgb(150, 141, 141);
+    width: 20%;
+    padding: 0;
+    margin: 0;
+ 
 }
