@@ -73,11 +73,13 @@ class Message {
         this.initMessage(this.message);
     }
 
+    // Initialisation de la zone des messages
     initMessage(message) {
-        message.append("Bienvenu dans le jeu de la chase au trésor");
+        let bienvenu = "Bienvenu dans le jeu de la chase au trésor";
+        let h3 = document.createElement('h3');
+        h3.textContent = bienvenu;
+        message.append(h3);
     }
-
-
 }
 
 class Jeu {
@@ -92,7 +94,7 @@ class Jeu {
         message = this.message;
     }
 
-    tour(nbTour = 100, carteOLD) {
+    tour(nbTour = 100, carteOLD = this.carte) {
         let i = 0;
 
         // On sauvegarde la carte du tour précédent
@@ -101,23 +103,21 @@ class Jeu {
         // Tant qu'on a pas atteint la fin des tours on continue à jouer
         while (i < nbTour) {
             while (this.action) {
-                this.carte;
+                this.message = "continue";
             }
         }
     }
 
-    action(nbAction) {
+    action(nbAction = 5) {
         let i = 0;
         while (i < nbAction) {
             return false;
         }
     }
 
-
-
-
 }
 
 let carte = document.getElementById("carte");
 let message = document.getElementById("message");
 let jeu = new Jeu(10, carte, message);
+jeu.tour();
