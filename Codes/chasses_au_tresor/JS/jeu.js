@@ -12,8 +12,6 @@ class Carte {
         this.eventHandler();
     }
 
-
-
     // Generation de la table des boutons
     initCarte(x, y, carte) {
         let arr2D = new Array(x);
@@ -42,6 +40,7 @@ class Carte {
         }
     }
 
+    // fonction de traitement des événements 
     eventHandler() {
         // on commencer par récupérer la div contenant les boutons
         let wrapper = document.getElementById("carte");
@@ -60,6 +59,19 @@ class Carte {
                 event.target.disabled = true;
             }
         })
+    }
+
+    disableMap() {
+        let wrapper = document.getElementById("carte"); 
+        // Get all buttons with the name 'all' and store in a NodeList called 'buttons'
+        let boutons = wrapper.getElementsByTagName("button");
+        // let boutons = document.getElementsByName('case');
+
+        // Loop through NodeList and call the click() function on each button
+        for(let i = 0; i <= boutons.length; i++) {
+            boutons[i].id = "clicked";
+            boutons[i].disabled = true;
+        }
     }
 }
 
@@ -85,39 +97,87 @@ class Message {
 class Jeu {
     carte = new Carte();
     message = new Message();
-    nbTour = 100;
+    defaut = 100;
     nbAction = 5;
+    tourActuel = 0;
 
-    constructor(nbTour, carte, message) {
-        nbTour = this.nbTour;
+    constructor(defaut, carte, message) {
+        defaut = this.defaut;
         carte = this.carte;
         message = this.message;
     }
 
-    tour(nbTour = 100, carteOLD = this.carte) {
-        let i = 0;
+    // fonction de calcul de tour
+    tour(i, carteOLD = this.carte) {
 
         // On sauvegarde la carte du tour précédent
         let carteNew = carteOLD;
 
         // Tant qu'on a pas atteint la fin des tours on continue à jouer
-        while (i < nbTour) {
-            while (this.action) {
-                this.message = "continue";
-            }
+        i++;
+        return i;
+    }
+
+    // fonction de calcul du nombre d'action
+    action(i) {
+        if (this.actionHandler()) {
+            i++;
+            return i;
         }
     }
 
-    action(nbAction = 5) {
-        let i = 0;
-        while (i < nbAction) {
-            return false;
+    // fonction de test si un bouton a été cliqué
+    getAction(event) {
+        const button = event.target.nodeName === "BUTTON";
+        if (button) {
+            return true;
         }
+    }
+
+    // fonction de traitement des actions
+    actionHandler() {
+        // on commencer par récupérer la div contenant les boutons
+        let wrapper = document.getElementById("carte");
+
+        // On récupère les évents dans cette div
+        wrapper.addEventListener("click", (event) => {
+            /**
+             * Avec la fonction getNodeClicked(event)
+             * On récupère ce qui a été cliqué
+             * Si c'est un bouton alors on change 
+             * La valeur de l'id à "clicked"
+             * */
+            const isButton = this.getAction(event);
+            if (isButton) {
+                console.log("ok");
+                return true;
+            }
+        })
+    }
+
+    getTour() {
+        return this.tourActuel;
+    }
+
+    setTour(tourActuel) {
+        this.tourActuel = tourActuel;
     }
 
 }
 
 let carte = document.getElementById("carte");
 let message = document.getElementById("message");
-let jeu = new Jeu(10, carte, message);
-jeu.tour();
+let jeu = new Jeu(100, carte, message);
+
+console.log("ok2");
+i = 0;
+j = 0;
+while (jeu.tour(i, carte) < 100) {
+    if (jeu.action(j) < 5) {
+        console.log("ok");
+    } else {
+        let plateau = new Carte();
+        plateau.disableMap();
+    }
+    console.log("ok");
+}
