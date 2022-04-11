@@ -64,6 +64,10 @@ class Carte {
 }
 
 /**
+ * PARTIE DES OBJETS
+ */
+
+/**
  * PARTIE DES MESSAGES
  */
 class Message {
@@ -82,6 +86,10 @@ class Message {
     }
 }
 
+
+/**
+ * PARTIE DU JEU 
+ */
 class Jeu {
     carte = new Carte();
     message = new Message();
@@ -95,7 +103,7 @@ class Jeu {
     jeu(nbActDef, defautNoTour) {
         let noTour = 0;
         console.log(noTour);
-        if (noTour < defautNoTour) {
+        while (noTour < defautNoTour) {
             noTour++;
             this.tour(nbActDef);
             console.log(noTour);
@@ -106,36 +114,29 @@ class Jeu {
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
         // On sauvegarde la carte du tour précédent
-        let carteNew = carteOLD;
-        
         let carte = document.getElementById("carte");
         // On récupère les évents dans l'élément "carte"
         carte.addEventListener("click", (event) => {
             if (i < nbActs) {
-            /**
-             * Avec la fonction getAction(event)
-             * On récupère ce qui a été cliqué
-             * Si c'est un bouton alors on change 
-             * La valeur de l'id à "clicked"
-             **/
+                /**
+                 * Avec la fonction getAction(event)
+                 * On récupère ce qui a été cliqué
+                 * Si c'est un bouton alors on change 
+                 * La valeur de l'id à "clicked"
+                 **/
                 const isButton = this.getAction(event);
                 if (isButton) {
                     i++;
                     console.log(i);
+                    return false;
                 }
             } else {
                 this.disableMap();
+                i = 0;
+                this.finPartie();
             }
         })
     }
-
-    // fonction de calcul du nombre d'action
-    // action(act) {
-    //     let carte = document.getElementById("carte");
-    //     if (this.actionHandler(carte)) {
-    //         return act + 1;
-    //     }
-    // }
 
     // fonction de traitement des actions
     actionHandler() {
@@ -163,46 +164,60 @@ class Jeu {
         }
     }
 
+    // Fonction de désactivation des boutons 
     disableMap() {
+        // On récupère l'élément carte
         let carte = document.getElementById("carte"); 
 
-        // On récupère la collection des boutons
+        // On récupère la collection des boutons de l'élément carte
         let collectionBtn = carte.getElementsByTagName("button");
-        console.log(collectionBtn);
-        // Qu'on affecte chacun à element de l'arrêt 
+        
+        // Puis on affecte chaque élément de la collection
+        // A un tableau de boutons 
         let boutons = new Array();
+        let i = 0;
         for (const bouton of collectionBtn) {
-            boutons = bouton;
+            boutons[i] = bouton;
+            i++;
         }
 
-        // let boutons = document.getElementsByName('case');
-
-        // On boucle sur l'arrêt des boutons 
-        for(let i = 0; i <= boutons.length; i++) {
+        // Puis on fait la boucle pour désactiver les boutons
+        for(let i = 0; i < boutons.length; i++) {
             boutons[i].id = "clicked";
             boutons[i].disabled = true;
         }
     }
 
+    // Fonction de réactivation de l'ensemble des boutons de la carte
     activateMap() {
+        // On récupère l'élément carte
         let carte = document.getElementById("carte"); 
   
-        // On récupère la collection des boutons
+        // On récupère la collection des boutons de l'élément carte
         let collectionBtn = carte.getElementsByTagName("button");
         
-        // Qu'on affecte chacun à element de l'arrêt 
+        // Puis on affecte chaque élément de la collection
+        // A un tableau de boutons 
         let boutons = new Array();
+        let i = 0;
         for (const bouton of collectionBtn) {
-            boutons += bouton;
+            boutons[i] = bouton;
+            i++;
         }
 
-        // let boutons = document.getElementsByName('case');
-
-        // On boucle sur l'arrêt des boutons 
-        for(let i = 0; i <= boutons.length; i++) {
+        // Puis on fait la boucle pour activer les boutons
+        for(let i = 0; i < boutons.length; i++) {
             boutons[i].id = "case";
             boutons[i].disabled = false;
         }
+    }
+
+    // Fonction de fin de partie 
+    finPartie() {
+        // let carte = carteOLD;
+
+        // On réactive l'ensemble de la carte
+        this.activateMap();
     }
 
 }
