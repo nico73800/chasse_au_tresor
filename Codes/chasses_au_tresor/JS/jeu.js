@@ -60,13 +60,115 @@ class Carte {
             return true;
         }
     }
-    
+
+}
+
+/**
+ * PARTIE DES MESSAGES
+ */
+class Message {
+    message = document.getElementById("message");
+
+    constructor() {
+        this.initMessage(this.message);
+    }
+
+    // Initialisation de la zone des messages
+    initMessage(message) {
+        let bienvenu = "Bienvenu dans le jeu de la chase au trésor";
+        let h3 = document.createElement('h3');
+        h3.textContent = bienvenu;
+        message.append(h3);
+    }
+}
+
+class Jeu {
+    carte = new Carte();
+    message = new Message();
+    nbTourdefaut = 100;
+    nbActionDefaut = 5;
+
+    constructor(nbTourdefaut = this.nbTourdefaut, nbActionDefaut = this.nbActionDefaut, carte = this.carte, message = this.message) {
+        this.jeu(nbActionDefaut, nbTourdefaut);
+    }
+
+    jeu(nbActDef, defautNoTour) {
+        let noTour = 0;
+        console.log(noTour);
+        if (noTour < defautNoTour) {
+            noTour++;
+            this.tour(nbActDef);
+            console.log(noTour);
+        }
+    }
+
+    // fonction de tour
+    tour(nbActs, carteOLD = this.carte) {
+        let i = 0;
+        // On sauvegarde la carte du tour précédent
+        let carteNew = carteOLD;
+        
+        let carte = document.getElementById("carte");
+        // On récupère les évents dans l'élément "carte"
+        carte.addEventListener("click", (event) => {
+            if (i < nbActs) {
+            /**
+             * Avec la fonction getAction(event)
+             * On récupère ce qui a été cliqué
+             * Si c'est un bouton alors on change 
+             * La valeur de l'id à "clicked"
+             **/
+                const isButton = this.getAction(event);
+                if (isButton) {
+                    i++;
+                    console.log(i);
+                }
+            } else {
+                this.disableMap();
+            }
+        })
+    }
+
+    // fonction de calcul du nombre d'action
+    // action(act) {
+    //     let carte = document.getElementById("carte");
+    //     if (this.actionHandler(carte)) {
+    //         return act + 1;
+    //     }
+    // }
+
+    // fonction de traitement des actions
+    actionHandler() {
+        let carte = document.getElementById("carte");
+        // On récupère les évents dans l'élément "carte"
+        carte.addEventListener("click", (event) => {
+        /**
+         * Avec la fonction getAction(event)
+         * On récupère ce qui a été cliqué
+         * Si c'est un bouton alors on change 
+         * La valeur de l'id à "clicked"
+         * */
+            const isButton = this.getAction(event);
+            if (isButton) {
+                return true;
+            }
+        })
+    }
+
+    // fonction de test si un bouton a été cliqué
+    getAction(event) {
+        const button = event.target.nodeName === "BUTTON";
+        if (button) {
+            return true;
+        }
+    }
+
     disableMap() {
         let carte = document.getElementById("carte"); 
 
         // On récupère la collection des boutons
         let collectionBtn = carte.getElementsByTagName("button");
-        
+        console.log(collectionBtn);
         // Qu'on affecte chacun à element de l'arrêt 
         let boutons = new Array();
         for (const bouton of collectionBtn) {
@@ -102,107 +204,6 @@ class Carte {
             boutons[i].disabled = false;
         }
     }
-}
-
-/**
- * PARTIE DES MESSAGES
- */
-class Message {
-    message = document.getElementById("message");
-
-    constructor() {
-        this.initMessage(this.message);
-    }
-
-    // Initialisation de la zone des messages
-    initMessage(message) {
-        let bienvenu = "Bienvenu dans le jeu de la chase au trésor";
-        let h3 = document.createElement('h3');
-        h3.textContent = bienvenu;
-        message.append(h3);
-    }
-}
-
-class Jeu {
-    carte = new Carte();
-    message = new Message();
-    nbTourdefaut = 100;
-    nbActionDefaut = 5;
-
-    constructor(nbTourdefaut = this.nbTourdefaut, nbActionDefaut = this.nbActionDefaut, carte = this.carte, message = this.message) {
-        this.jeu(nbActionDefaut, nbTourdefaut);
-    }
-
-    jeu(nbActDef, defauNoTour) {
-        let noTour = 0;
-        console.log(noTour);
-        while (this.tour(noTour, defauNoTour)) {
-            noTour++
-            console.log(noTour);
-            // console.log(i);
-            let a = 0;
-            let finTour = false;
-            if (finTour == false) {
-                console.log(finTour);
-                let carte = document.getElementById("carte");
-                carte.addEventListener("click", (event) => {
-                    if (this.actionHandler(event)) {
-                        if (a < nbActDef) {
-                            console.log(a);
-                            a++;
-                        } else {
-                            finTour = true;
-                            this.carte.disableMap();
-                        }
-                    }
-                }
-            )}
-        }
-    }
-        // fonction de tour
-    tour(noTour, defautNoTour, carteOLD = this.carte) {
-        
-        // On sauvegarde la carte du tour précédent
-        let carteNew = carteOLD;
-        if (noTour < defautNoTour) {
-            return true;
-        }
-        
-    }
-
-    // fonction de calcul du nombre d'action
-    // action(act) {
-    //     let carte = document.getElementById("carte");
-    //     if (this.actionHandler(carte)) {
-    //         return act + 1;
-    //     }
-    // }
-
-    // fonction de traitement des actions
-    actionHandler(event) {
-        // On récupère les évents dans l'élément "carte"
-        // carte.addEventListener("click", (event) => {
-        /**
-         * Avec la fonction getAction(event)
-         * On récupère ce qui a été cliqué
-         * Si c'est un bouton alors on change 
-         * La valeur de l'id à "clicked"
-         * */
-        const isButton = this.getAction(event);
-        if (isButton) {
-            return true;
-        }
-        // })
-    }
-
-    // fonction de test si un bouton a été cliqué
-    getAction(event) {
-        const button = event.target.nodeName === "BUTTON";
-        if (button) {
-            return true;
-        }
-    }    
-
 
 }
 
