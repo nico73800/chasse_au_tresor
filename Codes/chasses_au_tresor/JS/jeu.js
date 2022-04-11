@@ -67,6 +67,18 @@ class Carte {
  * PARTIE DES OBJETS
  */
 
+class Item {
+    nom = "";
+    effet = { malus, bonus };
+
+    constructor(nom, effet) {
+        this.nom = nom;
+        this.effet = effet;
+    }
+
+
+}
+
 /**
  * PARTIE DES MESSAGES
  */
@@ -143,12 +155,12 @@ class Jeu {
         let carte = document.getElementById("carte");
         // On récupère les évents dans l'élément "carte"
         carte.addEventListener("click", (event) => {
-        /**
-         * Avec la fonction getAction(event)
-         * On récupère ce qui a été cliqué
-         * Si c'est un bouton alors on change 
-         * La valeur de l'id à "clicked"
-         * */
+            /**
+             * Avec la fonction getAction(event)
+             * On récupère ce qui a été cliqué
+             * Si c'est un bouton alors on change 
+             * La valeur de l'id à "clicked"
+             **/
             const isButton = this.getAction(event);
             if (isButton) {
                 return true;
@@ -167,11 +179,11 @@ class Jeu {
     // Fonction de désactivation des boutons 
     disableMap() {
         // On récupère l'élément carte
-        let carte = document.getElementById("carte"); 
+        let carte = document.getElementById("carte");
 
         // On récupère la collection des boutons de l'élément carte
         let collectionBtn = carte.getElementsByTagName("button");
-        
+
         // Puis on affecte chaque élément de la collection
         // A un tableau de boutons 
         let boutons = new Array();
@@ -182,7 +194,7 @@ class Jeu {
         }
 
         // Puis on fait la boucle pour désactiver les boutons
-        for(let i = 0; i < boutons.length; i++) {
+        for (let i = 0; i < boutons.length; i++) {
             boutons[i].id = "clicked";
             boutons[i].disabled = true;
         }
@@ -191,11 +203,11 @@ class Jeu {
     // Fonction de réactivation de l'ensemble des boutons de la carte
     activateMap() {
         // On récupère l'élément carte
-        let carte = document.getElementById("carte"); 
-  
+        let carte = document.getElementById("carte");
+
         // On récupère la collection des boutons de l'élément carte
         let collectionBtn = carte.getElementsByTagName("button");
-        
+
         // Puis on affecte chaque élément de la collection
         // A un tableau de boutons 
         let boutons = new Array();
@@ -206,7 +218,7 @@ class Jeu {
         }
 
         // Puis on fait la boucle pour activer les boutons
-        for(let i = 0; i < boutons.length; i++) {
+        for (let i = 0; i < boutons.length; i++) {
             boutons[i].id = "case";
             boutons[i].disabled = false;
         }
@@ -227,4 +239,4 @@ class Jeu {
 
 // let plateau = new Carte();
 // let message = new Message();
-let jeu = new Jeu(100,5);
+let jeu = new Jeu(100, 5);
