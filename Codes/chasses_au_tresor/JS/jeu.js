@@ -77,7 +77,7 @@ class Carte {
 
         // On boucle sur l'arrêt des boutons 
         for(let i = 0; i <= boutons.length; i++) {
-            boutons[i].id += "clicked";
+            boutons[i].id = "clicked";
             boutons[i].disabled = true;
         }
     }
@@ -133,62 +133,66 @@ class Jeu {
         this.jeu(nbActionDefaut, nbTourdefaut);
     }
 
-    jeu(nbAct, defauNoTour) {
+    jeu(nbActDef, defauNoTour) {
         let noTour = 0;
+        console.log(noTour);
         while (this.tour(noTour, defauNoTour)) {
             noTour++
-            carte.addEventListener("click", () => {
-                // console.log(i);
-                let a = 0;
-                let finTour = false;
-                while (finTour == false) {
-                    console.log(finTour);
-                    if (a < nbAct) {
-                        console.log(a);
-                        a = this.action(a); 
-                    } else {
-                        finTour = true;
-                        this.carte.disableMap();
+            console.log(noTour);
+            // console.log(i);
+            let a = 0;
+            let finTour = false;
+            if (finTour == false) {
+                console.log(finTour);
+                let carte = document.getElementById("carte");
+                carte.addEventListener("click", (event) => {
+                    if (this.actionHandler(event)) {
+                        if (a < nbActDef) {
+                            console.log(a);
+                            a++;
+                        } else {
+                            finTour = true;
+                            this.carte.disableMap();
+                        }
                     }
                 }
-            })
+            )}
         }
-        
     }
         // fonction de tour
     tour(noTour, defautNoTour, carteOLD = this.carte) {
         
         // On sauvegarde la carte du tour précédent
         let carteNew = carteOLD;
-        if (noTour >= defautNoTour) {
-            return false;
-
+        if (noTour < defautNoTour) {
+            return true;
         }
         
     }
 
     // fonction de calcul du nombre d'action
-    action(act) {
-        let carte = document.getElementById("carte");
-        if (this.actionHandler(carte)) {
-            return act + 1;
-        }
-    }
+    // action(act) {
+    //     let carte = document.getElementById("carte");
+    //     if (this.actionHandler(carte)) {
+    //         return act + 1;
+    //     }
+    // }
+
     // fonction de traitement des actions
-    actionHandler(carte) {
+    actionHandler(event) {
         // On récupère les évents dans l'élément "carte"
-        carte.addEventListener("click", (event) => {
-            /**
-             * Avec la fonction getAction(event)
-             * On récupère ce qui a été cliqué
-             * Si c'est un bouton alors on change 
-             * La valeur de l'id à "clicked"
-             * */
-            const isButton = this.getAction(event);
-            if (isButton) {
-                return true;
-            }
-        })
+        // carte.addEventListener("click", (event) => {
+        /**
+         * Avec la fonction getAction(event)
+         * On récupère ce qui a été cliqué
+         * Si c'est un bouton alors on change 
+         * La valeur de l'id à "clicked"
+         * */
+        const isButton = this.getAction(event);
+        if (isButton) {
+            return true;
+        }
+        // })
     }
 
     // fonction de test si un bouton a été cliqué
