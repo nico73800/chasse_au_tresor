@@ -64,38 +64,69 @@ class Carte {
 }
 
 /**
- * PARTIE DES OBJETS
- */
-
-class Item {
-    nom = "";
-    effet = { malus, bonus };
-
-    constructor(nom, effet) {
-        this.nom = nom;
-        this.effet = effet;
-    }
-
-
-}
-
-/**
  * PARTIE DES MESSAGES
  */
 class Message {
     message = document.getElementById("message");
 
     constructor() {
-        this.initMessage(this.message);
+        
     }
 
     // Initialisation de la zone des messages
-    initMessage(message) {
+    initMessage() {
+        let message = document.getElementById("message");
         let bienvenu = "Bienvenu dans le jeu de la chase au trésor";
         let h3 = document.createElement('h3');
         h3.textContent = bienvenu;
         message.append(h3);
     }
+
+    ajoutMessage(contenu) {
+        let message = document.getElementById("message");
+        let p = document.createElement("p");
+        p.textContent = contenu;
+        message.append(p);
+    }
+}
+
+/**
+ * PARTIE DES OBJETS
+ */
+
+ class Item {
+    nom = "";
+    //{ malus, bonus };
+    effet = "";
+
+    constructor(nom, effet) {
+        this.nom = nom;
+        this.effet = effet;
+    }
+
+    getNom() {
+        return this.nom;
+    }
+
+    setNom(nom) {
+        this.nom = nom;
+    }
+
+    getEffet() {
+        return this.effet;
+    }
+
+    setEffet(effet) {
+        if (effet != "malus" && effet != "bonus") {
+            let message = new Message();
+            message.ajoutMessage("Mauvaise valeur saisie, valeur par défaut : malus");
+            this.effet = "malus";
+        }
+        else {
+            this.effet = effet;
+        }
+    }
+
 }
 
 
@@ -113,6 +144,7 @@ class Jeu {
     }
 
     jeu(nbActDef, defautNoTour) {
+        this.message.initMessage();
         let noTour = 0;
         console.log(noTour);
         while (noTour < defautNoTour) {
@@ -150,6 +182,13 @@ class Jeu {
         })
     }
 
+    // Fonction de fin de partie 
+    finPartie() {
+        // On réactive l'ensemble de la carte
+        this.activateMap();
+    }
+    
+
     // fonction de traitement des actions
     actionHandler() {
         let carte = document.getElementById("carte");
@@ -163,7 +202,7 @@ class Jeu {
              **/
             const isButton = this.getAction(event);
             if (isButton) {
-                return true;
+                return 1;
             }
         })
     }
@@ -224,14 +263,6 @@ class Jeu {
         }
     }
 
-    // Fonction de fin de partie 
-    finPartie() {
-        // let carte = carteOLD;
-
-        // On réactive l'ensemble de la carte
-        this.activateMap();
-    }
-
 }
 
 // let carte = document.getElementById("carte");
@@ -240,3 +271,6 @@ class Jeu {
 // let plateau = new Carte();
 // let message = new Message();
 let jeu = new Jeu(100, 5);
+
+let item = new Item("banana", "malus");
+item.setEffet("blblbl");
