@@ -91,13 +91,14 @@ class Message {
 }
 
 /**
- * PARTIE DES OBJETS
+ * PARTIE DES ITEMS
  */
 
  class Item {
     nom = "";
-    //{ malus, bonus };
-    effet = "";
+
+    // Enumeration des effet
+    effet = { MALUS: 1, BONUS: 0 };
 
     constructor(nom, effet) {
         this.nom = nom;
@@ -117,18 +118,52 @@ class Message {
     }
 
     setEffet(effet) {
-        if (effet != "malus" && effet != "bonus") {
+        if (effet != this.effet.BONUS && effet != this.effet.MALUS) {
             let message = new Message();
             message.ajoutMessage("Mauvaise valeur saisie, valeur par défaut : malus");
-            this.effet = "malus";
+            this.effet = this.effet.MALUS;
         }
         else {
             this.effet = effet;
         }
     }
-
 }
 
+/**
+ * PARTIE ITEM : CLASSE FILLE OBJET
+ */
+
+class Objet extends Item {
+    nom = "";
+
+    // Enumeration des effet
+    effet = { MALUS: 0, BONUS: 1 };
+
+    // Enumeration des actions
+    action = { CREUSE: 0, COUPE: 1, EXPLOSE: 2, EMPOISONNE: 3,};
+    constructor(nom, effet, action) {
+        super(nom, effet, action);
+        this.nom = nom;
+        this.effet = effet;
+        this.action = action;
+    }
+}
+
+/**
+ * PARTIE OBJET : CLASSE FILLE PELLE
+ */
+
+class Pelle extends Objet {
+    nom = "Pelle";
+    effet = "bonus";
+    action = { CREUSE: 0, COUPE: 1, EXPLOSE: 2, EMPOISONNE: 3,};
+    constructor(nom, effet, action) {
+        super(nom, effet, action);
+        this.nom = nom;
+        this.effet = effet;
+        this.action = action;
+    }
+}
 
 /**
  * PARTIE DU JEU 
