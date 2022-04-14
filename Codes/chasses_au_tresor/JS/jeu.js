@@ -30,7 +30,7 @@ class Carte {
         }
     }
 
-    // fonction de traitement des événements 
+    // fonction de traitement des événements
     eventHandler(carte) {
         // on commencer par récupérer la div contenant les boutons
         // let  = document.getElementById("carte");
@@ -40,7 +40,7 @@ class Carte {
             /**
              * Avec la fonction getNodeClicked(event)
              * On récupère ce qui a été cliqué
-             * Si c'est un bouton alors on change 
+             * Si c'est un bouton alors on change
              * La vlaeur de l'id à "clicked"
              * */
             const isButton = this.getNodeClicked(event);
@@ -51,9 +51,9 @@ class Carte {
         })
     }
 
-    // fonction retournant vrai si l'objet cliqué est un boutton 
+    // fonction retournant vrai si l'objet cliqué est un boutton
     getNodeClicked(event) {
-        // Récupère le nom du noeud cliqué 
+        // Récupère le nom du noeud cliqué
         const button = event.target.nodeName === "BUTTON";
         // Si c'est un bouton on retourne vrai
         if (button) {
@@ -70,7 +70,7 @@ class Message {
     message = document.getElementById("message");
 
     constructor() {
-        
+
     }
 
     // Initialisation de la zone des messages
@@ -166,7 +166,7 @@ class Pelle extends Objet {
 }
 
 /**
- * PARTIE DU JEU 
+ * PARTIE DU JEU
  */
 class Jeu {
     carte = new Carte();
@@ -200,7 +200,7 @@ class Jeu {
                 /**
                  * Avec la fonction getAction(event)
                  * On récupère ce qui a été cliqué
-                 * Si c'est un bouton alors on change 
+                 * Si c'est un bouton alors on change
                  * La valeur de l'id à "clicked"
                  **/
                 const isButton = this.getAction(event);
@@ -217,12 +217,12 @@ class Jeu {
         })
     }
 
-    // Fonction de fin de partie 
+    // Fonction de fin de partie
     finPartie() {
         // On réactive l'ensemble de la carte
         this.activateMap();
     }
-    
+
 
     // fonction de traitement des actions
     actionHandler() {
@@ -232,7 +232,7 @@ class Jeu {
             /**
              * Avec la fonction getAction(event)
              * On récupère ce qui a été cliqué
-             * Si c'est un bouton alors on change 
+             * Si c'est un bouton alors on change
              * La valeur de l'id à "clicked"
              **/
             const isButton = this.getAction(event);
@@ -250,7 +250,7 @@ class Jeu {
         }
     }
 
-    // Fonction de désactivation des boutons 
+    // Fonction de désactivation des boutons
     disableMap() {
         // On récupère l'élément carte
         let carte = document.getElementById("carte");
@@ -259,7 +259,7 @@ class Jeu {
         let collectionBtn = carte.getElementsByTagName("button");
 
         // Puis on affecte chaque élément de la collection
-        // A un tableau de boutons 
+        // A un tableau de boutons
         let boutons = new Array();
         let i = 0;
         for (const bouton of collectionBtn) {
@@ -283,7 +283,7 @@ class Jeu {
         let collectionBtn = carte.getElementsByTagName("button");
 
         // Puis on affecte chaque élément de la collection
-        // A un tableau de boutons 
+        // A un tableau de boutons
         let boutons = new Array();
         let i = 0;
         for (const bouton of collectionBtn) {

@@ -12,15 +12,23 @@ body {
     /* width: 35%; */
     padding: 0;
     margin: 0;
-    width: auto;
+    width: 60%;
 }
 
 .cases {
-    padding: 23.5px;
+    width: 10vh;
+    height: 10vh;
+    max-height: 10vw;
+    max-width: 10vw;
     margin: 2px;
     border: 1px solid rgb(140, 148, 140);
-    border-radius: 5px;
+    border-radius: 5%;
     opacity: 0.5;
+}
+
+.cases::after {
+    display: block;
+    padding-bottom: 100%;
 }
 
 #clicked {
