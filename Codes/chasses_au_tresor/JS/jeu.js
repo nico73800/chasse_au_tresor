@@ -17,16 +17,19 @@ class Carte {
         let arr2D = new Array(x);
         for (let i = 0; i < arr2D.length; i++) {
             arr2D[i] = new Array(y);
+            let ligne = document.createElement("div");
+            ligne.setAttribute("class", "row");
+            ligne.innerHTML = "";
 
             for (let j = 0; j < arr2D[i].length; j++) {
-                let input = document.createElement("button");
-                input.setAttribute("type", "button");
+                let input = document.createElement("div");
                 input.setAttribute("class", "cases");
-                input.setAttribute("id", "case");
-                input.setAttribute("name", i);
-                carte.append(input);
+                input.setAttribute("id", "case" + j);
+                input.setAttribute("name", i+""+j);
+                ligne.innerHTML = ligne.innerHTML + input.outerHTML;
             }
-            carte.append(document.createElement("br"));
+            carte.append(ligne);
+            // carte.append(document.createElement("br"));
         }
     }
 
@@ -43,8 +46,8 @@ class Carte {
              * Si c'est un bouton alors on change
              * La vlaeur de l'id à "clicked"
              * */
-            const isButton = this.getNodeClicked(event);
-            if (isButton) {
+            const isClicked = this.getNodeClicked(event);
+            if (isClicked) {
                 event.target.id = "clicked";
                 event.target.disabled = true;
             }
