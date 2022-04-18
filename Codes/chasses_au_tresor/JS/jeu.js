@@ -25,6 +25,7 @@ class Carte {
                 let input = document.createElement("div");
                 input.setAttribute("class", "cases");
                 input.setAttribute("id", "case" + j);
+                // input.setAttribute("id", "case" + j);
                 input.setAttribute("name", i+""+j);
                 ligne.innerHTML = ligne.innerHTML + input.outerHTML;
             }
@@ -57,13 +58,15 @@ class Carte {
     // fonction retournant vrai si l'objet cliqué est un boutton
     getNodeClicked(event) {
         // Récupère le nom du noeud cliqué
-        const button = event.target.nodeName === "BUTTON";
-        // Si c'est un bouton on retourne vrai
+        const button = event.target.nodeName === "DIV";
+        // Si c'est un bouton :
         if (button) {
-            return true;
+            // Et si l'élément cliqué à un certain nom de class 
+            if (event.target.className === "cases") {
+                return true;
+            }
         }
     }
-
 }
 
 /**
@@ -192,7 +195,11 @@ class Jeu {
         }
     }
 
-    // fonction de tour
+    /**
+     * 
+     * @param {*} nbActs : nombre d'actions possible
+     * @param {*} carteOLD : pas utilisé encore 
+     */
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
         // On sauvegarde la carte du tour précédent
@@ -247,10 +254,16 @@ class Jeu {
 
     // fonction de test si un bouton a été cliqué
     getAction(event) {
-        const button = event.target.nodeName === "BUTTON";
+        // Récupère le nom du noeud cliqué
+        const button = event.target.nodeName === "DIV";
+        // Si c'est un bouton :
         if (button) {
-            return true;
+            // Et Si l'élément cliqué à un certain nom de class 
+            if (event.target.className === "cases") {
+                return true;
+            }
         }
+
     }
 
     // Fonction de désactivation des boutons
