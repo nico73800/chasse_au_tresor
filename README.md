@@ -11,7 +11,7 @@ Un jeu de chasse au trésor dans les langages : HTML, CSS, JS
     * La fonction : "eventHandler(carte) : isButton => isClicked
 - Button => DIV, à changer :
     * La fonction : "getNodeClicked(event) :
-        |> nodeName === "BUTTON" ne marche plus (ch1) : moyen pour ne calculer que les cases
+        > nodeName === "BUTTON" ne marche plus (ch1) : moyen pour ne calculer que les cases
 5. Classe CARTE et JEU : 
 - Changements dans la fonction "getNodeClicked(event)" :
     * rajout de la ligne permettant de distingué si c'est une case de la grille d'un élément dans la grille  
