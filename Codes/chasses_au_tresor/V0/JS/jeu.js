@@ -55,13 +55,17 @@ class Carte {
         })
     }
 
-    // fonction retournant vrai si l'objet cliqué est un boutton
+    /**
+     * Fonction retournant vrai si l'objet cliqué est un boutton
+     * @param {*} event : événements
+     * @returns Boolean
+     */
     getNodeClicked(event) {
         // Récupère le nom du noeud cliqué
         const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
         if (button) {
-            // Et si l'élément cliqué à un certain nom de class 
+            // Et si l'élément cliqué à un certain nom de class
             if (event.target.className === "cases") {
                 return true;
             }
@@ -79,7 +83,9 @@ class Message {
 
     }
 
-    // Initialisation de la zone des messages
+    /**
+     * Initialisation de la zone des messages
+     */
     initMessage() {
         let message = document.getElementById("message");
         let bienvenu = "Bienvenu dans le jeu de la chase au trésor";
@@ -88,6 +94,10 @@ class Message {
         message.append(h3);
     }
 
+    /**
+     * Fonction d'ajout des messages à la zone des messages
+     * @param {*} contenu : String
+     */
     ajoutMessage(contenu) {
         let message = document.getElementById("message");
         let p = document.createElement("p");
@@ -140,13 +150,13 @@ class Message {
  */
 
 class Objet extends Item {
-    nom = "";
+    nom = { PELLE: 0, HACHE: 1 };
 
     // Enumeration des effet
-    effet = { MALUS: 0, BONUS: 1 };
+    effet = Item.prototype.effet.BONUS;
 
     // Enumeration des actions
-    action = { CREUSE: 0, COUPE: 1, EXPLOSE: 2, EMPOISONNE: 3,};
+    action = { CREUSE: 0, COUPE: 1 };
     constructor(nom, effet, action) {
         super(nom, effet, action);
         this.nom = nom;
@@ -161,9 +171,9 @@ class Objet extends Item {
 
 class Pelle extends Objet {
     nom = "Pelle";
-    effet = "bonus";
+    effet = Objet.prototype.effet.BONUS;
     action = { CREUSE: 0, COUPE: 1, EXPLOSE: 2, EMPOISONNE: 3,};
-    constructor(nom, effet, action) {
+    constructor(nom = "Pelle", effet = Objet.prototype.effet.BONUS, action = this.action.CREUSE) {
         super(nom, effet, action);
         this.nom = nom;
         this.effet = effet;
@@ -185,9 +195,9 @@ class Jeu {
     }
 
     /**
-     * 
+     *
      * @param {*} nbActDef : nombre d'action par défaut par jeu
-     * @param {*} defautNoTour : nombre de tour par défaut par jeu 
+     * @param {*} defautNoTour : nombre de tour par défaut par jeu
      */
     jeu(nbActDef, defautNoTour) {
         this.message.initMessage();
@@ -203,8 +213,8 @@ class Jeu {
     /**
      * Fonction de tour
      * @param {*} nbActs : nombre d'actions possible
-     * @param {*} carteOLD : pas utilisé encore 
-     * @returns {*} Boolean 
+     * @param {*} carteOLD : pas utilisé encore
+     * @returns {*} Boolean
      */
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
@@ -252,8 +262,7 @@ class Jeu {
             /**
              * Avec la fonction getAction(event)
              * On récupère ce qui a été cliqué
-             * Si c'est un bouton alors on change
-             * La valeur de l'id à "clicked"
+             * Si c'est un bouton alors on retourne 1
              **/
             const isButton = this.getAction(event);
             if (isButton) {
@@ -271,7 +280,7 @@ class Jeu {
         const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
         if (button) {
-            // Et Si l'élément cliqué à un certain nom de class 
+            // Et Si l'élément cliqué à un certain nom de class
             if (event.target.className === "cases") {
                 return true;
             }
@@ -315,14 +324,14 @@ class Jeu {
         // On récupère la collection des div de classe "cases" de l'élément carte
         let collectionBtn = carte.getElementsByClassName("cases");
 
-        // On créer un tableau 
+        // On créer un tableau
         let boutons = new Array();
         // Et on affecte chaque élément de la collection
         let i = 0;
         for (const bouton of collectionBtn) {
             boutons[i] = bouton;
             i++;
-        } 
+        }
 
         // Puis on fait la boucle pour activer les boutons
         for (let i = 0; i < boutons.length; i++) {
