@@ -96,7 +96,7 @@ class Message {
 
     /**
      * Fonction d'ajout des messages à la zone des messages
-     * @param {*} contenu : String
+     * @param {String} contenu : Chaine de caractères
      */
     ajoutMessage(contenu) {
         let message = document.getElementById("message");
@@ -121,18 +121,34 @@ class Message {
         this.effet = effet;
     }
 
+    /**
+     * Fonction pour avoir le nom de l'item
+     * @returns {String} nom
+     */
     getNom() {
         return this.nom;
     }
 
+    /**
+     * Fonction pour set le nom de l'item
+     * @param {String} nom 
+     */
     setNom(nom) {
         this.nom = nom;
     }
 
+    /**
+     * 
+     * @returns {effet}
+     */
     getEffet() {
         return this.effet;
     }
 
+    /**
+     * Fonction de paramétrage de l'effet 
+     * @param {effet} effet 
+     */
     setEffet(effet) {
         if (effet != this.effet.BONUS && effet != this.effet.MALUS) {
             let message = new Message();
@@ -196,8 +212,8 @@ class Jeu {
 
     /**
      *
-     * @param {*} nbActDef : nombre d'action par défaut par jeu
-     * @param {*} defautNoTour : nombre de tour par défaut par jeu
+     * @param {int} nbActDef : nombre d'action par défaut par jeu
+     * @param {Int} defautNoTour : nombre de tour par défaut par jeu
      */
     jeu(nbActDef, defautNoTour) {
         this.message.initMessage();
@@ -212,9 +228,9 @@ class Jeu {
 
     /**
      * Fonction de tour
-     * @param {*} nbActs : nombre d'actions possible
-     * @param {*} carteOLD : pas utilisé encore
-     * @returns {*} Boolean
+     * @param {int} nbActs : nombre d'actions possible
+     * @param {Carte} carteOLD : pas utilisé encore
+     * @returns {Boolean} 
      */
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
@@ -229,8 +245,8 @@ class Jeu {
                  * Si c'est un bouton alors on change
                  * La valeur de l'id à "clicked"
                  **/
-                const isButton = this.getAction(event);
-                if (isButton) {
+                const isClicked = this.getAction(event);
+                if (isClicked) {
                     i++;
                     console.log(i);
                     return false;
@@ -253,7 +269,8 @@ class Jeu {
 
 
     /**
-     *  fonction de traitement des actions
+     * fonction de traitement des actions
+     * @returns {int} 1
      */
     actionHandler() {
         let carte = document.getElementById("carte");
@@ -273,7 +290,8 @@ class Jeu {
 
     /**
      * fonction de test si un bouton a été cliqué
-     * @param {*} event : type événément
+     * @param {Event} event type événément
+     * @returns {Boolean} true/false
      */
     getAction(event) {
         // Récupère le nom du noeud cliqué
@@ -281,7 +299,8 @@ class Jeu {
         // Si c'est un bouton :
         if (button) {
             // Et Si l'élément cliqué à un certain nom de class
-            if (event.target.className === "cases") {
+            console.log(event.target.id);
+            if (event.target.className === "cases" & toString(event.target.id) !== "clicked") {
                 return true;
             }
         }
