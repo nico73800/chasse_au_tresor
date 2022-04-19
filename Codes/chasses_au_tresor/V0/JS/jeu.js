@@ -322,7 +322,7 @@ class Jeu {
         for (const bouton of collectionBtn) {
             boutons[i] = bouton;
             i++;
-        }
+        } 
 
         // Puis on fait la boucle pour activer les boutons
         for (let i = 0; i < boutons.length; i++) {
