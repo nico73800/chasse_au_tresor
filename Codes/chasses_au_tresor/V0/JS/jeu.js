@@ -67,7 +67,7 @@ class Carte {
         // Si c'est un bouton :
         // if (button) {
             // Et si l'élément cliqué à un certain nom de class
-            if (toString(event.target.id) !== "clicked") {
+            if (event.target.className === "cases") {
                 return true;
             }
         // }
@@ -300,7 +300,7 @@ class Jeu {
         // const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
         // if (button && (event.target.className === "cases" && event.target.id !== clicked)) {
-        if (toString(event.target.id) !== "clicked") {
+        if (event.target.className === "cases") {
             // Et Si l'élément cliqué à un certain nom de class
             console.log(event.target.id);
                 return true;
