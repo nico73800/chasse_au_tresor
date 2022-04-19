@@ -184,6 +184,11 @@ class Jeu {
         this.jeu(nbActionDefaut, nbTourdefaut);
     }
 
+    /**
+     * 
+     * @param {*} nbActDef : nombre d'action par défaut par jeu
+     * @param {*} defautNoTour : nombre de tour par défaut par jeu 
+     */
     jeu(nbActDef, defautNoTour) {
         this.message.initMessage();
         let noTour = 0;
@@ -196,9 +201,10 @@ class Jeu {
     }
 
     /**
-     * 
+     * Fonction de tour
      * @param {*} nbActs : nombre d'actions possible
      * @param {*} carteOLD : pas utilisé encore 
+     * @returns {*} Boolean 
      */
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
@@ -227,14 +233,18 @@ class Jeu {
         })
     }
 
-    // Fonction de fin de partie
+    /**
+     * Fonction de fin de partie
+     */
     finPartie() {
         // On réactive l'ensemble de la carte
         this.activateMap();
     }
 
 
-    // fonction de traitement des actions
+    /**
+     *  fonction de traitement des actions
+     */
     actionHandler() {
         let carte = document.getElementById("carte");
         // On récupère les évents dans l'élément "carte"
@@ -252,7 +262,10 @@ class Jeu {
         })
     }
 
-    // fonction de test si un bouton a été cliqué
+    /**
+     * fonction de test si un bouton a été cliqué
+     * @param {*} event : type événément
+     */
     getAction(event) {
         // Récupère le nom du noeud cliqué
         const button = event.target.nodeName === "DIV";
@@ -266,13 +279,15 @@ class Jeu {
 
     }
 
-    // Fonction de désactivation des boutons
+    /**
+     * Fonction de désactivation de la carte
+     */
     disableMap() {
         // On récupère l'élément carte
         let carte = document.getElementById("carte");
 
-        // On récupère la collection des boutons de l'élément carte
-        let collectionBtn = carte.getElementsByTagName("button");
+        // On récupère la collection des div de classe "cases" de l'élément carte
+        let collectionBtn = carte.getElementsByClassName("cases");
 
         // Puis on affecte chaque élément de la collection
         // A un tableau de boutons
@@ -290,17 +305,19 @@ class Jeu {
         }
     }
 
-    // Fonction de réactivation de l'ensemble des boutons de la carte
+    /**
+     * Fonction de réactivation de la carte
+     */
     activateMap() {
         // On récupère l'élément carte
         let carte = document.getElementById("carte");
 
-        // On récupère la collection des boutons de l'élément carte
-        let collectionBtn = carte.getElementsByTagName("button");
+        // On récupère la collection des div de classe "cases" de l'élément carte
+        let collectionBtn = carte.getElementsByClassName("cases");
 
-        // Puis on affecte chaque élément de la collection
-        // A un tableau de boutons
+        // On créer un tableau 
         let boutons = new Array();
+        // Et on affecte chaque élément de la collection
         let i = 0;
         for (const bouton of collectionBtn) {
             boutons[i] = bouton;
@@ -313,7 +330,6 @@ class Jeu {
             boutons[i].disabled = false;
         }
     }
-
 }
 
 // let carte = document.getElementById("carte");
