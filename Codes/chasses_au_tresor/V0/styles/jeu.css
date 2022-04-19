@@ -32,7 +32,16 @@ body {
 
 #clicked {
     background-color: grey;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    border: 1px solid rgb(140, 148, 140);
+    border-radius: 5%;
+    opacity: 0.5;
 }
+
+/* .cases_unvalaible {
+} */
 
 #message {
     /* border: 1px solid rgb(150, 141, 141); */

@@ -50,6 +50,7 @@ class Carte {
             const isClicked = this.getNodeClicked(event);
             if (isClicked) {
                 event.target.id = "clicked";
+                event.target.className = "cases_unvalaible";
                 event.target.disabled = true;
             }
         })
@@ -64,12 +65,12 @@ class Carte {
         // Récupère le nom du noeud cliqué
         const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
-        if (button) {
+        // if (button) {
             // Et si l'élément cliqué à un certain nom de class
-            if (event.target.className === "cases") {
+            if (toString(event.target.id) !== "clicked") {
                 return true;
             }
-        }
+        // }
     }
 }
 
@@ -228,7 +229,7 @@ class Jeu {
 
     /**
      * Fonction de tour
-     * @param {int} nbActs : nombre d'actions possible
+     * @param {Int8Array} nbActs : nombre d'actions possible
      * @param {Carte} carteOLD : pas utilisé encore
      * @returns {Boolean} 
      */
@@ -246,7 +247,8 @@ class Jeu {
                  * La valeur de l'id à "clicked"
                  **/
                 const isClicked = this.getAction(event);
-                if (isClicked) {
+                console.log(isClicked);
+                if (isClicked === true) {
                     i++;
                     console.log(i);
                     return false;
@@ -270,7 +272,7 @@ class Jeu {
 
     /**
      * fonction de traitement des actions
-     * @returns {int} 1
+     * @returns {Int8Array} 1
      */
     actionHandler() {
         let carte = document.getElementById("carte");
@@ -290,21 +292,21 @@ class Jeu {
 
     /**
      * fonction de test si un bouton a été cliqué
-     * @param {Event} event type événément
+     * @param {Event} event 
      * @returns {Boolean} true/false
      */
     getAction(event) {
         // Récupère le nom du noeud cliqué
-        const button = event.target.nodeName === "DIV";
+        // const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
-        if (button) {
+        // if (button && (event.target.className === "cases" && event.target.id !== clicked)) {
+        if (toString(event.target.id) !== "clicked") {
             // Et Si l'élément cliqué à un certain nom de class
             console.log(event.target.id);
-            if (event.target.className === "cases" & toString(event.target.id) !== "clicked") {
                 return true;
-            }
+        } else {
+            return false;
         }
-
     }
 
     /**
