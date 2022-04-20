@@ -12,16 +12,29 @@ class Carte {
         this.eventHandler(this.carte);
     }
 
-    // Generation de la table des boutons
+    /**
+     * Fonction de génération du tableau de la carte
+     * @param {Int8Array} x 
+     * @param {Int8Array} y 
+     * @param {HTMLElement} carte 
+     */
     initCarte(x, y, carte) {
+        // On instancie un tableau de taille X
         let arr2D = new Array(x);
+
+        // Pour chaque case de ce tableau 
         for (let i = 0; i < arr2D.length; i++) {
+            // On instancie une colonne de taille Y
             arr2D[i] = new Array(y);
+
+            // On créer la ligne de div
             let ligne = document.createElement("div");
             ligne.setAttribute("class", "row");
             ligne.innerHTML = "";
 
+            // Pour chaque ligne 
             for (let j = 0; j < arr2D[i].length; j++) {
+                // On ajoute les cases avec leur id, leur classe, etc.
                 let input = document.createElement("div");
                 input.setAttribute("class", "cases");
                 input.setAttribute("id", "case" + j);
@@ -29,12 +42,16 @@ class Carte {
                 input.setAttribute("name", i+""+j);
                 ligne.innerHTML = ligne.innerHTML + input.outerHTML;
             }
+            // Puis on ajoute la ligne à l'élément HTML "carte" 
             carte.append(ligne);
             // carte.append(document.createElement("br"));
         }
     }
 
-    // fonction de traitement des événements
+    /**
+     * Fonction de gestion des clicks sur la carte
+     * @param {HTMLElement} carte 
+     */
     eventHandler(carte) {
         // on commencer par récupérer la div contenant les boutons
         // let  = document.getElementById("carte");
@@ -58,7 +75,7 @@ class Carte {
 
     /**
      * Fonction retournant vrai si l'objet cliqué est un boutton
-     * @param {*} event : événements
+     * @param {Event} event 
      * @returns Boolean
      */
     getNodeClicked(event) {
@@ -81,7 +98,7 @@ class Message {
     message = document.getElementById("message");
 
     constructor() {
-
+        this.initMessage();
     }
 
     /**
@@ -112,6 +129,8 @@ class Message {
  */
 
  class Item {
+    Zmessage = document.getElementById("message");
+    // message = new Message();
     nom = "";
 
     // Enumeration des effet
@@ -152,8 +171,10 @@ class Message {
      */
     setEffet(effet) {
         if (effet != this.effet.BONUS && effet != this.effet.MALUS) {
-            let message = new Message();
-            message.ajoutMessage("Mauvaise valeur saisie, valeur par défaut : malus");
+            // let message = new Message();
+
+            // On utilise la propriété "prototype" pour utiliser la fonction ajoutMessage(contenu)
+            Message.prototype.ajoutMessage("Mauvaise valeur saisie, valeur par défaut : malus");
             this.effet = this.effet.MALUS;
         }
         else {
@@ -207,17 +228,16 @@ class Jeu {
     nbTourdefaut = 100;
     nbActionDefaut = 5;
 
-    constructor(nbTourdefaut = this.nbTourdefaut, nbActionDefaut = this.nbActionDefaut, carte = this.carte, message = this.message) {
+    constructor(nbTourdefaut = this.nbTourdefaut, nbActionDefaut = this.nbActionDefaut) {
         this.jeu(nbActionDefaut, nbTourdefaut);
     }
 
     /**
      *
-     * @param {int} nbActDef : nombre d'action par défaut par jeu
-     * @param {Int} defautNoTour : nombre de tour par défaut par jeu
+     * @param {Int16Array} nbActDef : nombre d'action par défaut par jeu
+     * @param {Int16Array} defautNoTour : nombre de tour par défaut par jeu
      */
     jeu(nbActDef, defautNoTour) {
-        this.message.initMessage();
         let noTour = 0;
         console.log(noTour);
         while (noTour < defautNoTour) {
