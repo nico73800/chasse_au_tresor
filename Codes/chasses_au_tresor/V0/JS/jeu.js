@@ -14,15 +14,15 @@ class Carte {
 
     /**
      * Fonction de génération du tableau de la carte
-     * @param {Int8Array} x 
-     * @param {Int8Array} y 
-     * @param {HTMLElement} carte 
+     * @param {Int8Array} x
+     * @param {Int8Array} y
+     * @param {HTMLElement} carte
      */
     initCarte(x, y, carte) {
         // On instancie un tableau de taille X
         let arr2D = new Array(x);
 
-        // Pour chaque case de ce tableau 
+        // Pour chaque case de ce tableau
         for (let i = 0; i < arr2D.length; i++) {
             // On instancie une colonne de taille Y
             arr2D[i] = new Array(y);
@@ -32,7 +32,7 @@ class Carte {
             ligne.setAttribute("class", "row");
             ligne.innerHTML = "";
 
-            // Pour chaque ligne 
+            // Pour chaque ligne
             for (let j = 0; j < arr2D[i].length; j++) {
                 // On ajoute les cases avec leur id, leur classe, etc.
                 let input = document.createElement("div");
@@ -42,7 +42,7 @@ class Carte {
                 input.setAttribute("name", i+""+j);
                 ligne.innerHTML = ligne.innerHTML + input.outerHTML;
             }
-            // Puis on ajoute la ligne à l'élément HTML "carte" 
+            // Puis on ajoute la ligne à l'élément HTML "carte"
             carte.append(ligne);
             // carte.append(document.createElement("br"));
         }
@@ -50,7 +50,7 @@ class Carte {
 
     /**
      * Fonction de gestion des clicks sur la carte
-     * @param {HTMLElement} carte 
+     * @param {HTMLElement} carte
      */
     eventHandler(carte) {
         // on commencer par récupérer la div contenant les boutons
@@ -64,10 +64,10 @@ class Carte {
              * Si c'est un bouton alors on change
              * La vlaeur de l'id à "clicked"
              * */
-            const isClicked = this.getNodeClicked(event);
+            const isClicked = this.getNodeClicked(event)[1];
             if (isClicked) {
                 event.target.id = "clicked";
-                event.target.className = "cases_unvalaible";
+                // event.target.className = oldId;
                 event.target.disabled = true;
             }
         })
@@ -75,18 +75,21 @@ class Carte {
 
     /**
      * Fonction retournant vrai si l'objet cliqué est un boutton
-     * @param {Event} event 
+     * @param {Event} event
      * @returns Boolean
      */
     getNodeClicked(event) {
         // Récupère le nom du noeud cliqué
-        const button = event.target.nodeName === "DIV";
+        // const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
         // if (button) {
-            // Et si l'élément cliqué à un certain nom de class
-            if (event.target.className === "cases") {
-                return true;
-            }
+        // Si l'élément cliqué à un certain nom de class et d'id
+        let cases = event.target.className;
+        let ids = event.target.id;
+        let oldID = event.target.id;
+        if ("cases" === cases && toString(ids) !== "clicked") {
+            return [oldID, true];
+        }
         // }
     }
 }
@@ -151,14 +154,14 @@ class Message {
 
     /**
      * Fonction pour set le nom de l'item
-     * @param {String} nom 
+     * @param {String} nom
      */
     setNom(nom) {
         this.nom = nom;
     }
 
     /**
-     * 
+     *
      * @returns {effet}
      */
     getEffet() {
@@ -166,8 +169,8 @@ class Message {
     }
 
     /**
-     * Fonction de paramétrage de l'effet 
-     * @param {effet} effet 
+     * Fonction de paramétrage de l'effet
+     * @param {effet} effet
      */
     setEffet(effet) {
         if (effet != this.effet.BONUS && effet != this.effet.MALUS) {
@@ -251,7 +254,7 @@ class Jeu {
      * Fonction de tour
      * @param {Int8Array} nbActs : nombre d'actions possible
      * @param {Carte} carteOLD : pas utilisé encore
-     * @returns {Boolean} 
+     * @returns {Boolean}
      */
     tour(nbActs, carteOLD = this.carte) {
         let i = 0;
@@ -268,7 +271,7 @@ class Jeu {
                  **/
                 const isClicked = this.getAction(event);
                 console.log(isClicked);
-                if (isClicked === true) {
+                if (isClicked) {
                     i++;
                     console.log(i);
                     return false;
@@ -311,8 +314,8 @@ class Jeu {
     }
 
     /**
-     * fonction de test si un bouton a été cliqué
-     * @param {Event} event 
+     * fonction de test si un bouton a déjà été cliqué
+     * @param {Event} event
      * @returns {Boolean} true/false
      */
     getAction(event) {
@@ -320,13 +323,17 @@ class Jeu {
         // const button = event.target.nodeName === "DIV";
         // Si c'est un bouton :
         // if (button && (event.target.className === "cases" && event.target.id !== clicked)) {
-        if (event.target.className === "cases") {
-            // Et Si l'élément cliqué à un certain nom de class
-            console.log(event.target.id);
-                return true;
+
+        // Si l'élément cliqué à un certain nom de class
+        let cases = event.target.className;
+        let ids = event.target.id;
+        if (ids === "clicked") {
+            return true;
         } else {
+            console.log(event.target.id);
             return false;
         }
+
     }
 
     /**

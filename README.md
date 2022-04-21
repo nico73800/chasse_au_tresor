@@ -12,9 +12,11 @@ Un jeu de chasse au trésor dans les langages : HTML, CSS, JS
 - Button => DIV, à changer :
     * La fonction : "getNodeClicked(event) :
         nodeName === "BUTTON" ne marche plus (ch1) : moyen pour ne calculer que les cases
-5. Classe CARTE et JEU : 
+5. Classe CARTE et JEU :
 - Changements dans la fonction "getNodeClicked(event)" :
-    * rajout de la ligne permettant de distingué si c'est une case de la grille d'un élément dans la grille et refonctionne 
+    * rajout de la ligne permettant de distingué si c'est une case de la grille d'un élément dans la grille et refonctionne
+6. Classe JEU et CARTE :
+    * Bug : on peut sélectionner deux fois qui a été déjà selectionné
 
 ### Reste à faire :
 1. Mise en place du fonctionnement du jeu (V1)
