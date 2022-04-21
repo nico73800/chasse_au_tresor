@@ -5,6 +5,7 @@ class Carte {
     carte = document.getElementById("carte");
     x = 10;
     y = 10;
+    ids = [];
     // message = "";
 
     constructor() {
@@ -37,15 +38,30 @@ class Carte {
                 // On ajoute les cases avec leur id, leur classe, etc.
                 let input = document.createElement("div");
                 input.setAttribute("class", "cases");
-                input.setAttribute("id", "case" + j);
-                // input.setAttribute("id", "case" + j);
-                input.setAttribute("name", i+""+j);
+                input.setAttribute("id", "cases" + i + "" + j);
+                input.setAttribute("name", "cases" + i + "" + j);
                 ligne.innerHTML = ligne.innerHTML + input.outerHTML;
             }
             // Puis on ajoute la ligne à l'élément HTML "carte"
             carte.append(ligne);
             // carte.append(document.createElement("br"));
         }
+    }
+
+    /**
+     * Fonction de génération du tableau de la carte
+     * @param {Int8Array} x
+     * @param {Int8Array} y
+     * @param {HTMLElement} carte
+     */
+    regenCarte(x, y, carte) {
+        carte.remove();
+        let main = document.getElementById("main");
+        let carte2 = document.createElement("div");
+        carte2.setAttribute("id", "carte");
+        main.append(carte2);
+        this.initCarte(x,y, carte2);
+        
     }
 
     /**
@@ -64,7 +80,7 @@ class Carte {
              * Si c'est un bouton alors on change
              * La vlaeur de l'id à "clicked"
              * */
-            const isClicked = this.getNodeClicked(event)[1];
+            const isClicked = this.getNodeClicked(event);
             if (isClicked) {
                 event.target.id = "clicked";
                 // event.target.className = oldId;
@@ -85,12 +101,36 @@ class Carte {
         // if (button) {
         // Si l'élément cliqué à un certain nom de class et d'id
         let cases = event.target.className;
-        let ids = event.target.id;
-        let oldID = event.target.id;
-        if ("cases" === cases && toString(ids) !== "clicked") {
-            return [oldID, true];
+        let oldId = event.target.id;
+        if ("cases" === cases && oldId !== "clicked") {
+            this.ajoutAncienID(oldId);
+            return true;
         }
         // }
+    }
+
+    ajoutAncienID(id) {
+        this.ids.push(id);
+    }
+
+    getAllID() {
+        if (this.ids.length > 0) {
+            for (let i = 0; i <= this.ids.length; i++) {
+                console.log(this.ids[i]);
+            }   
+        }
+    }
+
+    getID(index) {
+        let value;
+        for (let i = 0; i < this.ids.length; i++) {
+            if (index == this.ids[i]) {
+                value = true;
+                console.log(value);
+            } else {
+                value = false;
+            }
+        }
     }
 }
 
@@ -170,10 +210,10 @@ class Message {
 
     /**
      * Fonction de paramétrage de l'effet
-     * @param {effet} effet
+     * @param {String} effet
      */
     setEffet(effet) {
-        if (effet != this.effet.BONUS && effet != this.effet.MALUS) {
+        if (effet != toString(this.effet.BONUS) && effet != toString(this.effet.MALUS)) {
             // let message = new Message();
 
             // On utilise la propriété "prototype" pour utiliser la fonction ajoutMessage(contenu)
@@ -243,11 +283,11 @@ class Jeu {
     jeu(nbActDef, defautNoTour) {
         let noTour = 0;
         console.log(noTour);
-        while (noTour < defautNoTour) {
+        // while (noTour < defautNoTour) {
             noTour++;
             this.tour(nbActDef);
             console.log(noTour);
-        }
+        // }
     }
 
     /**
@@ -326,12 +366,15 @@ class Jeu {
 
         // Si l'élément cliqué à un certain nom de class
         let cases = event.target.className;
-        let ids = event.target.id;
-        if (ids === "clicked") {
-            return true;
-        } else {
-            console.log(event.target.id);
-            return false;
+        let id = event.target.id;
+        if (cases === "cases") {
+            if (this.carte.getID(event.target.getAttribute("name")) && toString(id) == "clicked") {
+                console.log("blep");
+                return false;
+            } else {
+                console.log(event.target.id);
+                return true;
+            }
         }
 
     }
@@ -358,7 +401,7 @@ class Jeu {
         // Puis on fait la boucle pour désactiver les boutons
         for (let i = 0; i < boutons.length; i++) {
             boutons[i].id = "clicked";
-            boutons[i].disabled = true;
+            // boutons[i].disabled = true;
         }
     }
 
@@ -383,8 +426,8 @@ class Jeu {
 
         // Puis on fait la boucle pour activer les boutons
         for (let i = 0; i < boutons.length; i++) {
-            boutons[i].id = "case";
-            boutons[i].disabled = false;
+            boutons[i].id = this.carte.getID(i);
+            // boutons[i].disabled = false;
         }
     }
 }
