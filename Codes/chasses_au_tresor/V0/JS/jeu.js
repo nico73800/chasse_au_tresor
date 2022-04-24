@@ -126,7 +126,8 @@ class Carte {
         for (let i = 0; i < this.ids.length; i++) {
             if (index == this.ids[i]) {
                 value = true;
-                console.log(value);
+                console.log(this.ids[i]);
+                console.log(index);
             } else {
                 value = false;
             }
@@ -369,6 +370,12 @@ class Jeu {
         let id = event.target.id;
         if (cases === "cases") {
             if (this.carte.getID(event.target.getAttribute("name")) && toString(id) == "clicked") {
+                /**
+                 * Peut-être utilé la fonction abort() du package AbortController() 
+                 * Pour éviter que la case soit réutilisable (voir lien suivant)
+                 * https://developer.mozilla.org/fr/docs/Web/API/EventTarget/addEventListener
+                 * 
+                 */
                 console.log("blep");
                 return false;
             } else {
