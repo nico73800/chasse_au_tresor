@@ -78,7 +78,7 @@ class Carte {
              * Avec la fonction getNodeClicked(event)
              * On récupère ce qui a été cliqué
              * Si c'est un bouton alors on change
-             * La vlaeur de l'id à "clicked"
+             * La valeur de l'id à "clicked"
              * */
             const isClicked = this.getNodeClicked(event);
             if (isClicked) {
@@ -124,7 +124,7 @@ class Carte {
     getID(index) {
         let value;
         for (let i = 0; i < this.ids.length; i++) {
-            if (index == this.ids[i]) {
+            if (index === this.ids[i]) {
                 value = true;
                 console.log(this.ids[i]);
                 console.log(index);
@@ -132,6 +132,7 @@ class Carte {
                 value = false;
             }
         }
+        return value;
     }
 }
 
@@ -369,7 +370,7 @@ class Jeu {
         let cases = event.target.className;
         let id = event.target.id;
         if (cases === "cases") {
-            if (this.carte.getID(event.target.getAttribute("name")) && toString(id) == "clicked") {
+            if (!this.carte.getID(event.target.getAttribute("name")) && id == "clicked") {
                 /**
                  * Peut-être utilé la fonction abort() du package AbortController() 
                  * Pour éviter que la case soit réutilisable (voir lien suivant)
