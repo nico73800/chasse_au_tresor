@@ -275,6 +275,7 @@ class Jeu {
 
     constructor(nbTourdefaut = this.nbTourdefaut, nbActionDefaut = this.nbActionDefaut) {
         this.jeu(nbActionDefaut, nbTourdefaut);
+        this.carte.getAllID();
     }
 
     /**
@@ -321,7 +322,9 @@ class Jeu {
             } else {
                 this.disableMap();
                 i = 0;
+                console.log(i);
                 this.finPartie();
+                console.log("ok");
             }
         })
     }
@@ -432,11 +435,21 @@ class Jeu {
             i++;
         }
 
-        // Puis on fait la boucle pour activer les boutons
+    let j = 0;
+    let k = 0;
+        // Puis on fait la boucle pour remettre les ids des cases avec les valeurs j et k 
         for (let i = 0; i < boutons.length; i++) {
-            boutons[i].id = this.carte.getID(i);
-            // boutons[i].disabled = false;
+            if (j > 9) {
+                j = 0;
+                k++;
+                boutons[i].id = "cases" + k + "" + j;
+            } else {
+                boutons[i].id = "cases" + k + "" + j;
+            }
+            console.log(boutons[i].id);
+            j++;            
         }
+            // boutons[i].disabled = false;
     }
 }
 
