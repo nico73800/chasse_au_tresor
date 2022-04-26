@@ -37,6 +37,7 @@ body {
     border: 1px solid rgb(140, 148, 140);
     border-radius: 5%;
     opacity: 0.5;
+    pointer-events: none;
 }
 
 /* .cases_unvalaible {

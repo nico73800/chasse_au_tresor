@@ -81,10 +81,12 @@ class Carte {
              * La valeur de l'id à "clicked"
              * */
             const isClicked = this.getNodeClicked(event);
+            console.log(isClicked);
             if (isClicked) {
-                event.target.id = "clicked";
+                let obj = event.target;
+                obj.id = "clicked";
                 // event.target.className = oldId;
-                event.target.disabled = true;
+                // document.getElementById("clicked").disabled = true;
             }
         })
     }
@@ -101,21 +103,25 @@ class Carte {
         // if (button) {
         // Si l'élément cliqué à un certain nom de class et d'id
         let cases = event.target.className;
-        let oldId = event.target.id;
-        if ("cases" === cases && oldId !== "clicked") {
+        let oldId = [event.target.id, event.target.getAttribute("name")];
+        if ("cases" === cases && event.target.id !== "clicked") {
             this.ajoutAncienID(oldId);
             return true;
+        } else {
+            return false;
         }
         // }
     }
 
     ajoutAncienID(id) {
-        this.ids.push(id);
+        if (id[0] !== "clicked") {
+            this.ids.push(id);
+        }
     }
 
     getAllID() {
         if (this.ids.length > 0) {
-            for (let i = 0; i <= this.ids.length; i++) {
+            for (let i = 0; i < this.ids.length; i++) {
                 console.log(this.ids[i]);
             }   
         }
@@ -124,7 +130,7 @@ class Carte {
     getID(index) {
         let value;
         for (let i = 0; i < this.ids.length; i++) {
-            if (index === this.ids[i]) {
+            if (index === this.ids[0][i]) {
                 value = true;
                 console.log(this.ids[i]);
                 console.log(index);
@@ -372,19 +378,22 @@ class Jeu {
         // Si l'élément cliqué à un certain nom de class
         let cases = event.target.className;
         let id = event.target.id;
+        console.log(id === "clicked");
+        console.log(cases === "cases");
         if (cases === "cases") {
-            if (!this.carte.getID(event.target.getAttribute("name")) && id == "clicked") {
+            if (id !== "clicked") {
                 /**
                  * Peut-être utilé la fonction abort() du package AbortController() 
                  * Pour éviter que la case soit réutilisable (voir lien suivant)
                  * https://developer.mozilla.org/fr/docs/Web/API/EventTarget/addEventListener
                  * 
                  */
-                console.log("blep");
-                return false;
-            } else {
-                console.log(event.target.id);
+                // console.log("blep");
+                console.log(id);
                 return true;
+            } else {
+                // console.log(event.target.id);
+                return false;
             }
         }
 
@@ -446,7 +455,7 @@ class Jeu {
             } else {
                 boutons[i].id = "cases" + k + "" + j;
             }
-            console.log(boutons[i].id);
+            // console.log(boutons[i].id);
             j++;            
         }
             // boutons[i].disabled = false;
