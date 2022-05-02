@@ -2,6 +2,7 @@
  * PARTIE CARTE
  */
 class Carte {
+    item = new Item();
     carte = document.getElementById("carte");
     x = 10;
     y = 10;
@@ -180,6 +181,7 @@ class Message {
  */
 
  class Item {
+    // Zone des messages
     Zmessage = document.getElementById("message");
     // message = new Message();
     nom = "";
@@ -232,6 +234,11 @@ class Message {
             this.effet = effet;
         }
     }
+
+    // Prototype de fonction utiliser dans les sous-classes
+    nbAleat(value) {
+        return Math.floor(value);
+    }
 }
 
 /**
@@ -239,35 +246,45 @@ class Message {
  */
 
 class Objet extends Item {
-    nom = { PELLE: 0, HACHE: 1 };
-
-    // Enumeration des effet
-    effet = Item.prototype.effet.BONUS;
-
+    // Enumération des objets
+    nom = { PELLE: 0, HACHE: 1 }; 
     // Enumeration des actions
     action = { CREUSE: 0, COUPE: 1 };
-    constructor(nom, effet, action) {
+    effet = Item.prototype.effet.BONUS;
+    nombreOBj = 5;
+
+    constructor(nom, effet, action, nombre) {
         super(nom, effet, action);
         this.nom = nom;
         this.effet = effet;
         this.action = action;
+        this.nombreOBj = nombre;
+    }
+
+    getNbItem() {
+        let i = 0;
+        Object.keys(nom).forEach(element => {
+            i++;
+        });
+        return i;
     }
 }
 
-/**
- * PARTIE OBJET : CLASSE FILLE PELLE
- */
+class Malus extends Item {
+    // Enumération des objets
+    nom = { Bombe: 0, Poison: 1 };
+    // Enumeration des actions
+    action = { Tue: 0, Empoisonne: 1 };
+    effet = Item.prototype.effet.MALUS;
+    nombreOBj = 5;
 
-class Pelle extends Objet {
-    nom = "Pelle";
-    effet = Objet.prototype.effet.BONUS;
-    action = { CREUSE: 0, COUPE: 1, EXPLOSE: 2, EMPOISONNE: 3,};
-    constructor(nom = "Pelle", effet = Objet.prototype.effet.BONUS, action = this.action.CREUSE) {
+    constructor(nom, effet, action, nombre) {
         super(nom, effet, action);
         this.nom = nom;
         this.effet = effet;
         this.action = action;
     }
+
 }
 
 /**
