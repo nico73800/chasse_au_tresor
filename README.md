@@ -18,6 +18,7 @@ Un jeu de chasse au trésor dans les langages : HTML, CSS, JS
 6. Classe JEU et CARTE :
     * Bug : on peut sélectionner deux fois qui a été déjà selectionné
     * Correction temporaire : modifié le CSS pour faire en sorte de bloquer les événements 
+    * Correction finale : utilisé le renvoi de la fonction "getAction(event) : renvoie undefined si pas de valeur bonne 
     
 ### Reste à faire :
 1. Mise en place du fonctionnement du jeu (V1)
