@@ -320,6 +320,7 @@ class Jeu {
                  **/
                 const isClicked = this.getAction(event);
                 console.log(isClicked);
+                // Vu que getAction retourne undefined si pas d'équivalence 
                 if (isClicked) {
                     i++;
                     console.log(i);
@@ -380,8 +381,10 @@ class Jeu {
         let id = event.target.id;
         console.log(id === "clicked");
         console.log(cases === "cases");
+
+        // Si ça n'est pas bon alors ça retourne undefined
         if (cases === "cases") {
-            if (id !== "clicked") {
+            if (id === "clicked") {
                 /**
                  * Peut-être utilé la fonction abort() du package AbortController() 
                  * Pour éviter que la case soit réutilisable (voir lien suivant)
@@ -444,10 +447,12 @@ class Jeu {
             i++;
         }
 
-    let j = 0;
-    let k = 0;
+        // variables permettant le nommage des cases
+        let j = 0;
+        let k = 0;
         // Puis on fait la boucle pour remettre les ids des cases avec les valeurs j et k 
         for (let i = 0; i < boutons.length; i++) {
+            // Si j est strictement supérieur à 9 on réinitialise la valeur à 0
             if (j > 9) {
                 j = 0;
                 k++;
