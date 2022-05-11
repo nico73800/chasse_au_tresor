@@ -250,7 +250,6 @@ class Objet extends Item {
     nom = { PELLE: 0, HACHE: 1 }; 
     // Enumeration des actions
     action = { CREUSE: 0, COUPE: 1 };
-    effet = Item.prototype.effet.BONUS;
     nombreOBj = 5;
 
     constructor(nom, effet, action, nombre) {
@@ -263,7 +262,7 @@ class Objet extends Item {
 
     getNbItem() {
         let i = 0;
-        Object.keys(nom).forEach(element => {
+        Object.keys(this.nom).forEach(element => {
             i++;
         });
         return i;
@@ -275,7 +274,6 @@ class Malus extends Item {
     nom = { Bombe: 0, Poison: 1 };
     // Enumeration des actions
     action = { Tue: 0, Empoisonne: 1 };
-    effet = Item.prototype.effet.MALUS;
     nombreOBj = 5;
 
     constructor(nom, effet, action, nombre) {
@@ -285,6 +283,13 @@ class Malus extends Item {
         this.action = action;
     }
 
+    getNbItem() {
+        let i = 0;
+        Object.keys(this.nom).forEach(element => {
+            i++;
+        });
+        return i;
+    }
 }
 
 /**
@@ -493,3 +498,6 @@ let jeu = new Jeu(100, 5);
 
 let item = new Item("banana", "malus");
 item.setEffet("blblbl");
+
+let obj = new Objet("ok","malus","boom",1000);
+let obj2 = new Objet("bleh","malus","boom",10);
