@@ -184,14 +184,12 @@ class Message {
     // Zone des messages
     Zmessage = document.getElementById("message");
     // message = new Message();
-    nom = "";
+    info = [];
 
     // Enumeration des effet
     effet = { MALUS: 1, BONUS: 0 };
 
-    constructor(nom, effet) {
-        this.nom = nom;
-        this.effet = effet;
+    constructor() {
     }
 
     /**
@@ -238,6 +236,35 @@ class Message {
     // Prototype de fonction utiliser dans les sous-classes
     nbAleat(value) {
         return Math.floor(value);
+    }
+
+    /**
+     * Ajoute les items dans la liste d'item
+     * @param {*} obj 
+     */
+    ajoutItem(obj) {
+        this.info.push(obj);
+    }
+
+    /**
+     * Renvoie le nombre d'items présents dans la listes d'infos
+     * @returns i
+     */
+    getNbItem() {
+        let i = 0;
+        Object.keys(this.info).forEach(element => {
+            i++;
+        });
+        return i;
+    }
+
+    /**
+     * affiche les infos de tous les objets
+     */
+    getInfosObjets() {
+        Object.keys(this.info).forEach(element => {
+            console.log(this.info[element]);
+        });  
     }
 }
 
@@ -496,8 +523,14 @@ class Jeu {
 // let message = new Message();
 let jeu = new Jeu(100, 5);
 
-let item = new Item("banana", "malus");
-item.setEffet("blblbl");
+let item = new Item();
 
 let obj = new Objet("ok","malus","boom",1000);
-let obj2 = new Objet("bleh","malus","boom",10);
+let obj2 = new Objet("bleh","malus","bim",10);
+let obj3 = new Objet("bloup","bonus","kaboum",10);
+
+item.ajoutItem(obj);
+item.ajoutItem(obj2);
+item.ajoutItem(obj3);
+
+item.getInfosObjets();
