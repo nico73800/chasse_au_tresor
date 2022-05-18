@@ -141,6 +141,19 @@ class Carte {
         }
         return value;
     }
+
+    /**
+     * Génère les items 
+     */
+    genITem() {
+        // A finir 
+        /**
+         * Principe : 
+         *  Créer soit un bonus soit un malus
+         *  En fonction d'un nombre aléatoire entre 0 et 1
+         *  0 : bonus, 1 : malus.
+         */
+    }
 }
 
 /**
@@ -209,7 +222,7 @@ class Message {
     }
 
     /**
-     *
+     * Retourne le type d'effet de l'objet  
      * @returns {effet}
      */
     getEffet() {
@@ -266,6 +279,14 @@ class Message {
             console.log(this.info[element]);
         });  
     }
+
+    /**
+     * Fonction d'ajout d'un message dans la zone de message 
+     * @param {*} obj 
+     */
+    addMessage(obj) {
+        this.Zmessage.append("Vous venez de trouvez un objet " + obj);
+    }
 }
 
 /**
@@ -287,14 +308,30 @@ class Objet extends Item {
         this.nombreOBj = nombre;
     }
 
+    /**
+     * Renvoie le nombre d'item souhaité par le joueur
+     * @returns {i}
+     */
     getNbItem() {
         let i = 0;
-        Object.keys(this.nom).forEach(element => {
+        Object.keys(this.nombreOBj).forEach(element => {
             i++;
         });
         return i;
     }
+
+    /**
+     * Fonction d'ajout d'un message dans la zone de message 
+     * @param {*} obj 
+     */
+    addMessage(obj) {
+        this.Zmessage.append("vous venez de trouver un objet de type Bonus nom : " + obj);
+    }
 }
+
+/**
+ * PARTIE ITEM : CLASSE FILLE MALUS
+ */
 
 class Malus extends Item {
     // Enumération des objets
@@ -310,13 +347,25 @@ class Malus extends Item {
         this.action = action;
     }
 
+    /**
+     * Renvoie le nombre d'item souhaité par le joueur
+     * @returns {i}
+     */
     getNbItem() {
         let i = 0;
         Object.keys(this.nom).forEach(element => {
             i++;
         });
         return i;
-    }
+    }  
+    
+    /**
+    * Fonction d'ajout d'un message dans la zone de message 
+    * @param {*} obj 
+    */
+   addMessage(obj) {
+       this.Zmessage.append("vous venez de trouver un objet de type Bonus nom : " + obj);
+   }
 }
 
 /**
@@ -335,8 +384,8 @@ class Jeu {
 
     /**
      *
-     * @param {Int16Array} nbActDef : nombre d'action par défaut par jeu
-     * @param {Int16Array} defautNoTour : nombre de tour par défaut par jeu
+     * @param {Number} nbActDef : nombre d'action par défaut par jeu
+     * @param {Number} defautNoTour : nombre de tour par défaut par jeu
      */
     jeu(nbActDef, defautNoTour) {
         let noTour = 0;
@@ -350,7 +399,7 @@ class Jeu {
 
     /**
      * Fonction de tour
-     * @param {Int8Array} nbActs : nombre d'actions possible
+     * @param {Number} nbActs : nombre d'actions possible
      * @param {Carte} carteOLD : pas utilisé encore
      * @returns {Boolean}
      */
@@ -396,7 +445,7 @@ class Jeu {
 
     /**
      * fonction de traitement des actions
-     * @returns {Int8Array} 1
+     * @returns {number} 1
      */
     actionHandler() {
         let carte = document.getElementById("carte");
