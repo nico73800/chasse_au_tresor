@@ -4,10 +4,9 @@
 class Carte {
     item = new Item();
     carte = document.getElementById("carte");
-    x = 10;
-    y = 10;
-    ids = [];
-    // message = "";
+    x = 10; // Nombre de lignes
+    y = 10; // Nombre de colonnes 
+    ids = []; // Tableau des ids des cases sélectionnées
 
     constructor() {
         this.initCarte(this.x, this.y, this.carte);
@@ -16,8 +15,8 @@ class Carte {
 
     /**
      * Fonction de génération du tableau de la carte
-     * @param {Int8Array} x
-     * @param {Int8Array} y
+     * @param {Number} x
+     * @param {Number} y
      * @param {HTMLElement} carte
      */
     initCarte(x, y, carte) {
@@ -51,8 +50,8 @@ class Carte {
 
     /**
      * Fonction de génération du tableau de la carte
-     * @param {Int8Array} x
-     * @param {Int8Array} y
+     * @param {Number} x
+     * @param {Number} y
      * @param {HTMLElement} carte
      */
     regenCarte(x, y, carte) {
@@ -445,7 +444,7 @@ class Jeu {
 
     /**
      * fonction de traitement des actions
-     * @returns {number} 1
+     * @returns {Number} 1
      */
     actionHandler() {
         let carte = document.getElementById("carte");
