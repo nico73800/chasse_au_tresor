@@ -2,8 +2,8 @@
  * PARTIE CARTE
  */
 class Carte {
-    item = new Item();
-    carte = document.getElementById("carte");
+    item = new Item(); // On génère les items sur la carte 
+    carte = document.getElementById("carte"); // On récupère la carte 
     x = 10; // Nombre de lignes
     y = 10; // Nombre de colonnes 
     ids = []; // Tableau des ids des cases sélectionnées
@@ -144,7 +144,7 @@ class Carte {
     /**
      * Génère les items 
      */
-    genITem() {
+    genItem() {
         // A finir 
         /**
          * Principe : 
@@ -195,10 +195,10 @@ class Message {
  class Item {
     // Zone des messages
     Zmessage = document.getElementById("message");
-    // message = new Message();
+
     info = [];
 
-    // Enumeration des effet
+    // Enumeration des effets
     effet = { MALUS: 1, BONUS: 0 };
 
     constructor() {
